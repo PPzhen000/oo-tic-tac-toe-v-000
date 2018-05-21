@@ -35,7 +35,7 @@ class TicTacToe
 
   def valid_move?(index)
     index.between?(0, 8) && !position_taken?(index)
-  end 
+  end
 
   def turn
     puts "Please enter 1-9:"
@@ -49,7 +49,7 @@ class TicTacToe
       turn
     end
   end
-  
+
   def current_player
     turn_count % 2 == 0 ? "X" : "O"
   end
@@ -58,5 +58,38 @@ class TicTacToe
     @board.count{|token| token == "X" || token == "O"}
   end
 
+  def won?
+  winner = nil
+  WIN_COMBINATIONS.detect do |combo|
+    if @board[combo[0]] == @board[combo[1]] &&
+       @board[combo[1]] == @board[combo[2]] &&
+       position_taken?(combo[0])
+       winner = combo
+      end
+    end
+    return winner
+  end
 
+  def full?
+    !@board.any? { |e| e == " " }
+  end
+
+  def draw?
+    !won? && full?
+  end
+
+  def over?
+    won? || full? || draw?
+  end
+
+  def winner
+    if won? != nil
+      index = won?
+      index = index[0]
+      return @board[index]
+    else
+      return nil
+    end
+  end
+  
 end
