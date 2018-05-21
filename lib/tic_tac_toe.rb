@@ -12,16 +12,8 @@ class TicTacToe
   [2,5,8], #Right column
   [0,4,8], #Left start diagonal
   [2,4,6]  #Right start diagonal
- ]
+  ]
 
-  def current_player
-    turn_count % 2 == 0 ? "X" : "O"
-  end
- 
-  def turn_count
-    @board.count{|token| token == "X" || token == "O"}
-  end
- 
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
@@ -29,4 +21,25 @@ class TicTacToe
     puts "-----------"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
+  def input_to_index(string)
+    index = string.to_i - 1 
+  end 
+
+  def move(index, token = "X")
+    @board[index] = token
+  end 
+
+  def position_taken?(index)
+    !(@board[index] == " " || @board[index] == "" || @board[index] == nil)
+  end 
+    
+  def current_player
+    turn_count % 2 == 0 ? "X" : "O"
+  end
+
+  def turn_count
+    @board.count{|token| token == "X" || token == "O"}
+  end
+
+  
 end
